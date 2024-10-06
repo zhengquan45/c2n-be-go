@@ -21,8 +21,8 @@ func CustomRecovery() gin.HandlerFunc {
 				switch e := err.(type) {
 				case *BusinessError:
 					// 处理业务异常
-					response = NewErrorResponse(e.Code, e.Message)
-					c.JSON(e.Code, response)
+					response = NewErrorResponse(e.ReCode.GetCode(), e.ReCode.GetDesc())
+					c.JSON(e.ReCode.GetCode(), response)
 				default:
 					// 处理系统异常
 					response = NewErrorResponse(http.StatusInternalServerError, "Internal Server Error")

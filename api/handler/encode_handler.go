@@ -9,6 +9,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
+	"c2n/enums"
+	"c2n/middleware"
 	"c2n/model"
 	"c2n/service"
 	"c2n/utils"
@@ -34,6 +36,23 @@ func (h *EncodeHandler) SignRegistration(c *gin.Context) {
 	contractAddr := utils.CleanHexPrefix(contractAddress)
 	userAddr := utils.CleanHexPrefix(userAddress)
 	concat := strings.ToLower(userAddr + contractAddr)
+	hex := common.HexToHash(concat).Hex()
+	sign := h.EncodeService.Sign(hex)
+	c.JSON(http.StatusOK, model.OkWithData[string](sign))
+}
+
+func (h *EncodeHandler) SignParticipation(c *gin.Context) {
+	userAddress := c.PostForm("userAddress")
+	contractAddress := c.PostForm("contractAddress")
+	amount := c.PostForm("amount")
+	log.Printf("userAddress: %s, contractAddress: %s amount: %s", userAddress, contractAddress, amount)
+	if userAddress == "" || contractAddress == "" || amount == "" {
+		panic(&middleware.BusinessError{ReCode: enums.INVALID_PARAMETERS})
+	}
+	contractAddr := utils.CleanHexPrefix(contractAddress)
+	userAddr := utils.CleanHexPrefix(userAddress)
+	//TODO Amount should be converted to hex toHexStringNoPrefixZeroPadded
+	concat := strings.ToLower(userAddr + amount + contractAddr)
 	hex := common.HexToHash(concat).Hex()
 	sign := h.EncodeService.Sign(hex)
 	c.JSON(http.StatusOK, model.OkWithData[string](sign))

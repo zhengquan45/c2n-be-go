@@ -15,6 +15,5 @@ func NewHelloHandler() *HelloHandler {
 
 // HelloController returns a greeting message
 func (h *HelloHandler) GetHelloWord(c *gin.Context) {
-
 	c.JSON(http.StatusOK, "Hello, World!")
 }

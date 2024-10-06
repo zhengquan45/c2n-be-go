@@ -1,6 +1,7 @@
 package service
 
 import (
+	"c2n/api/request"
 	"c2n/model"
 	"c2n/repository"
 )
@@ -17,4 +18,12 @@ func NewProductContractService(productContractRepository *repository.ProductCont
 
 func (s *ProductContractService) GetById(productContractId string) (*model.ProductContract, error) {
 	return s.ProductContractRepository.GetById(productContractId)
+}
+
+func (s *ProductContractService) List() ([]model.ProductContract, error) {
+	return s.ProductContractRepository.List()
+}
+
+func (s *ProductContractService) Update(productContractUpdateRequest *request.ProductContractUpdateRequest) error {
+	return s.ProductContractRepository.Update(productContractUpdateRequest)
 }
