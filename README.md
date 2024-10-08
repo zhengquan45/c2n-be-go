@@ -52,7 +52,6 @@ go run main.go //运行项目
 go test ./.. //运行所有测试用例
 ```
 
-
 ## 部署项目
 
 ```
@@ -62,3 +61,15 @@ docker-compose up -d
 ```
 
 ![1728379096195](image/README/1728379096195.png)
+
+## 生成 swagger 文档
+
+```
+go run github.com/swaggo/swag/cmd/swag@latest init
+```
+
+
+## 管理数据库版本
+
+
+go run github.com/pressly/goose/v3@latest create add_users_table sql
