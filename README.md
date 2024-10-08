@@ -6,7 +6,7 @@
 
 📘 [Gorm 文档传送门](https://gorm.io/docs/)
 
-📘 [Geth 官方文档]([https://geth.ethereum.org/docs/]())
+📘 [Geth 官方文档](https://geth.ethereum.org/docs)
 
 ## 目录
 
@@ -55,10 +55,10 @@ go test ./.. //运行所有测试用例
 
 ## 部署项目
 
+```
 cd deployment
-
 docker-compose up -d
-
-
+浏览器访问 
+```
 
 ![1728379096195](image/README/1728379096195.png)
