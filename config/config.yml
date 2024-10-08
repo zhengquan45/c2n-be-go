@@ -6,3 +6,6 @@ DATABASE:
   USER: "root"
   PASSWORD: "123456"
   NAME: "brewery"
+
+OWNER:
+  PRIVATE_KEY: "0e1d94c27d8d5b34befb4498a2e9cc5eed796f5a81bca584988702fcc5067179"

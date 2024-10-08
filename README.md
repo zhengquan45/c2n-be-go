@@ -50,4 +50,5 @@
 ```
 go get //安装依赖
 go run main.go //运行项目
+go test ./.. //运行所有测试用例
 ```

@@ -1,8 +1,11 @@
 ENV : "production"
 PORT: "9090"
 DATABASE:
-  HOST: "localhost"
+  HOST: "your_db_host"
   PORT: "3306"
   USER: "root"
-  PASSWORD: "123456"
+  PASSWORD: "your_db_password"
   NAME: "brewery"
+
+OWNER:
+  PRIVATE_KEY: "your_private_key"

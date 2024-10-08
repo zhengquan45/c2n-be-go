@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"c2n/config"
 	"fmt"
 	"strconv"
 	"strings"
@@ -12,7 +13,6 @@ import (
 )
 
 const MESSAGE_PREFIX = "\x19Ethereum Signed Message:\n"
-const PRIVATE_KEY = "0e1d94c27d8d5b34befb4498a2e9cc5eed796f5a81bca584988702fcc5067179"
 
 func GetSign(hexString string) string {
 	bytes, _ := hexStringToByteArray(hexString)
@@ -71,7 +71,7 @@ func hexStringToByteArray(input string) ([]byte, error) {
 }
 
 func doSign(message []byte) (string, error) {
-	prv, err := crypto.HexToECDSA(PRIVATE_KEY)
+	prv, err := crypto.HexToECDSA(config.AppConfig.Owner.PrivateKey)
 	if err != nil {
 		fmt.Println("Error loading private key:", err)
 		return "", err

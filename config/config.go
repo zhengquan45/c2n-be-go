@@ -3,6 +3,7 @@ package config
 import (
 	"c2n/logger"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/viper"
 )
@@ -17,6 +18,9 @@ type Config struct {
 		Password string `mapstructure:"PASSWORD"`
 		Name     string `mapstructure:"NAME"`
 	} `mapstructure:"DATABASE"`
+	Owner struct {
+		PrivateKey string `mapstructure:"PRIVATE_KEY"`
+	} `mapstructure:"OWNER"`
 }
 
 var AppConfig Config
@@ -29,8 +33,11 @@ func LoadConfig() {
 	} else {
 		viper.SetConfigName("config") // 配置
 	}
-	viper.SetConfigType("yml")      // 配置文件类型
-	viper.AddConfigPath("./config") // 添加配置文件路径
+
+	viper.SetConfigType("yml") // 配置文件类型
+
+	configPath := findRoot() + "/config"
+	viper.AddConfigPath(configPath) // 添加配置文件路径
 
 	if err := viper.ReadInConfig(); err != nil {
 		logger.Log.Errorf("Error reading config file, %s", err)
@@ -39,4 +46,28 @@ func LoadConfig() {
 	if err := viper.Unmarshal(&AppConfig); err != nil {
 		logger.Log.Errorf("Unable to decode into struct, %v", err)
 	}
+}
+
+func findRoot() string {
+	dir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
+	// 不断向上查找 go.mod 文件
+	for {
+		if _, err := os.Stat(filepath.Join(dir, "go.mod")); err == nil {
+			return dir // 找到 go.mod 文件，返回当前目录
+		}
+
+		// 向上一级目录
+		parent := filepath.Dir(dir)
+		if parent == dir {
+			// 已经到根目录，停止
+			break
+		}
+		dir = parent
+	}
+
+	panic("could not find go.mod")
 }
