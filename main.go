@@ -39,5 +39,5 @@ func main() {
 		productContractHandler,
 	)
 
-	r.Run(":9999") // 启动服务
+	r.Run(":" + config.AppConfig.Port) // 启动服务
 }

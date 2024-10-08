@@ -13,11 +13,11 @@
 ```
 ├── api
 │   ├── handler
-│   │   └── user.go        # 用户相关的业务逻辑处理函数
+│   │   └── xxx.go        # 用户相关的业务逻辑处理函数
 │   ├── request
-│   │   └── user.go        # 请求参数的定义和验证
+│   │   └── xxx.go        # 请求参数的定义和验证
 │   ├── response
-│       └── user.go        # 响应数据的定义
+│       └── xxx.go        # 响应数据的定义
 ├── config
 │   └── config.go          # 配置文件的加载、管理
 ├── database
@@ -26,21 +26,28 @@
 ├── middleware
 │   └── auth.go            # 中间件，如认证、日志等
 ├── model
-│   └── user.go            # GORM 模型定义
+│   └── xxx.go            # GORM 模型定义
 ├── repository
-│   └── user_repository.go # 数据库访问逻辑，封装数据库操作
-├── routes
+│   └── xxx_repository.go # 数据库访问逻辑，封装数据库操作
+├── route
 │   └── router.go          # 路由定义
 ├── service
-│   └── user_service.go    # 业务逻辑层，调用 repository 处理业务
+│   └── xxx_service.go    # 业务逻辑层，调用 repository 处理业务
+├── utils
+│   └──xxx_utils.go        # 各种工具类
 ├── main.go                # 主入口文件
 ├── go.mod                 # Go modules 管理文件
-└── go.sum                 # Go modules 依赖文件
+├── go.sum                 # Go modules 依赖文件
+├── output.log             # 项目日志, 运行时会自动生成
+├── README.md  
+├── .env                   # 环境变量文件, 不用也可以去掉
+└── .gitignore   
 ```
 
 
 ## 启动项目
 
 ```
-go run main.go
+go get //安装依赖
+go run main.go //运行项目
 ```
