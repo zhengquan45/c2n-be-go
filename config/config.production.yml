@@ -1,5 +1,5 @@
 ENV : "production"
-PORT: "9090"
+PORT: "8080"
 DATABASE:
   HOST: "your_db_host"
   PORT: "3306"

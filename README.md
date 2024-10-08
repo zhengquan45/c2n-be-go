@@ -44,7 +44,6 @@
 └── .gitignore   
 ```
 
-
 ## 启动项目
 
 ```
@@ -52,3 +51,14 @@ go get //安装依赖
 go run main.go //运行项目
 go test ./.. //运行所有测试用例
 ```
+
+
+## 部署项目
+
+cd deployment
+
+docker-compose up -d
+
+
+
+![1728379096195](image/README/1728379096195.png)

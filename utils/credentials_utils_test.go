@@ -17,8 +17,7 @@ func TestCleanHexPrefix(t *testing.T) {
 }
 
 func TestGetSign(t *testing.T) {
-	// 加载配置文件
-	config.LoadConfig()
+	config.AppConfig.Owner.PrivateKey = "0e1d94c27d8d5b34befb4498a2e9cc5eed796f5a81bca584988702fcc5067179"
 	hexString := "0xDe03b04D52EbA5B27F4460d450Fae531A1A95cB0"
 	result := GetSign(hexString)
 	fmt.Println(result)

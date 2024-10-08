@@ -4,7 +4,11 @@ import (
 	"c2n/api/handler"
 	"c2n/middleware"
 
+	_ "c2n/docs" // 替换为你的项目路径
+
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func SetupRouter(
@@ -16,6 +20,7 @@ func SetupRouter(
 	// 使用自定义的 Recovery 中间件
 	r.Use(middleware.CustomRecovery())
 	// 注册路由
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.GET("/hello", helloHandler.GetHelloWord)
 	r.POST("/encode/sign_registration", encodeHandler.SignRegistration)
 	r.POST("/encode/sign_participation", encodeHandler.SignParticipation)

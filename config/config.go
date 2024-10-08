@@ -49,25 +49,34 @@ func LoadConfig() {
 }
 
 func findRoot() string {
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-
-	// 不断向上查找 go.mod 文件
-	for {
-		if _, err := os.Stat(filepath.Join(dir, "go.mod")); err == nil {
-			return dir // 找到 go.mod 文件，返回当前目录
+	if os.Getenv("GO_ENV") == "production" {
+		exePath, err := os.Executable()
+		if err != nil {
+			panic(err)
+		}
+		return filepath.Dir(exePath)
+	} else {
+		dir, err := os.Getwd()
+		if err != nil {
+			panic(err)
 		}
 
-		// 向上一级目录
-		parent := filepath.Dir(dir)
-		if parent == dir {
-			// 已经到根目录，停止
-			break
+		// 不断向上查找 go.mod 文件
+		for {
+			if _, err := os.Stat(filepath.Join(dir, "go.mod")); err == nil {
+				return dir // 找到 go.mod 文件，返回当前目录
+			}
+
+			// 向上一级目录
+			parent := filepath.Dir(dir)
+			if parent == dir {
+				// 已经到根目录，停止
+				break
+			}
+			dir = parent
 		}
-		dir = parent
+
+		panic("could not find go.mod")
 	}
 
-	panic("could not find go.mod")
 }
