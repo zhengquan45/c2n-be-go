@@ -12,9 +12,9 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// @title Example API
+// @title C2N API
 // @version 1.0
-// @description This is a sample server Petstore server.
+// @description This is C2N API server.
 // @termsOfService http://swagger.io/terms/
 
 // @contact.name API Support

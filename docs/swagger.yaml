@@ -1,0 +1,279 @@
+basePath: /api/v1
+definitions:
+  model.Result-response_ProductContractResponse:
+    properties:
+      code:
+        description: 返回Code
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/response.ProductContractResponse'
+        description: 返回数据
+      message:
+        description: 返回消息
+        type: string
+    type: object
+  model.Result-string:
+    properties:
+      code:
+        description: 返回Code
+        type: integer
+      data:
+        description: 返回数据
+        type: string
+      message:
+        description: 返回消息
+        type: string
+    type: object
+  response.ProductContractResponse:
+    properties:
+      about_html:
+        type: string
+      amount:
+        type: string
+      amount_of_tokens_to_sell:
+        type: string
+      card_link:
+        type: string
+      chain_id:
+        type: integer
+      create_time:
+        type: integer
+      current_price:
+        type: integer
+      decimals:
+        type: integer
+      description:
+        type: string
+      follower:
+        type: integer
+      id:
+        type: integer
+      img:
+        type: string
+      max_participation:
+        type: string
+      medias:
+        type: string
+      name:
+        type: string
+      number_of_registrations:
+        type: integer
+      payment_token:
+        type: string
+      payment_token_decimals:
+        type: integer
+      project_website:
+        type: string
+      registration_time_ends:
+        type: integer
+      registration_time_starts:
+        type: integer
+      roi:
+        type: string
+      sale_contract_address:
+        type: string
+      sale_end:
+        type: integer
+      sale_start:
+        type: integer
+      status:
+        type: integer
+      symbol:
+        type: string
+      tge:
+        type: integer
+      token_address:
+        type: string
+      token_name:
+        type: string
+      token_price_in_PT:
+        type: string
+      total_raised:
+        type: string
+      total_tokens_sold:
+        type: string
+      tricker:
+        type: string
+      tweet_id:
+        type: string
+      type:
+        type: integer
+      unlock_time:
+        type: integer
+      update_time:
+        type: integer
+      vesting:
+        type: string
+      vesting_percent_per_portion:
+        items:
+          type: integer
+        type: array
+      vesting_portions_unlock_time:
+        items:
+          type: integer
+        type: array
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is C2N API server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: C2N API
+  version: "1.0"
+paths:
+  /encode/sign_participation:
+    post:
+      consumes:
+      - application/json
+      description: Sign Participation
+      parameters:
+      - description: User Address
+        in: formData
+        name: userAddress
+        required: true
+        type: string
+      - description: Contract Address
+        in: formData
+        name: contractAddress
+        required: true
+        type: string
+      - description: Amount
+        in: formData
+        name: amount
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Sign
+          schema:
+            type: string
+      summary: Sign Participation
+      tags:
+      - encode
+  /encode/sign_registration:
+    post:
+      consumes:
+      - application/json
+      description: Sign Registration
+      parameters:
+      - description: User Address
+        in: formData
+        name: userAddress
+        required: true
+        type: string
+      - description: Contract Address
+        in: formData
+        name: contractAddress
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Sign
+          schema:
+            type: string
+      summary: Sign Registration
+      tags:
+      - encode
+  /hello:
+    get:
+      consumes:
+      - application/json
+      description: Returns a greeting message
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Hello, World!
+          schema:
+            type: string
+      summary: HelloWorld
+      tags:
+      - hello
+  /product/base_info:
+    get:
+      consumes:
+      - application/json
+      description: Get product base info
+      parameters:
+      - description: Product Contract Id
+        in: query
+        name: productContractId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Result-response_ProductContractResponse'
+      summary: Product Base Info
+      tags:
+      - product
+  /product/list:
+    get:
+      consumes:
+      - application/json
+      description: Get product list
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Result-response_ProductContractResponse'
+      summary: Product List
+      tags:
+      - product
+  /update:
+    post:
+      consumes:
+      - application/json
+      description: Update product contract
+      parameters:
+      - description: Product Contract Id
+        in: formData
+        name: productContractId
+        required: true
+        type: string
+      - description: Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Description
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: Price
+        in: formData
+        name: price
+        required: true
+        type: string
+      - description: Status
+        in: formData
+        name: status
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Result-string'
+      summary: Update Product Contract
+      tags:
+      - product
+swagger: "2.0"

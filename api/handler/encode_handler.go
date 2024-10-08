@@ -26,6 +26,15 @@ func NewEncodeHandler(encodeService *service.EncodeService) *EncodeHandler {
 	}
 }
 
+// @Summary Sign Registration
+// @Description Sign Registration
+// @Tags encode
+// @Accept json
+// @Produce json
+// @Param userAddress formData string true "User Address"
+// @Param contractAddress formData string true "Contract Address"
+// @Success 200 {string} string "Sign"
+// @Router /encode/sign_registration [post]
 func (h *EncodeHandler) SignRegistration(c *gin.Context) {
 	userAddress := c.PostForm("userAddress")
 	contractAddress := c.PostForm("contractAddress")
@@ -41,6 +50,16 @@ func (h *EncodeHandler) SignRegistration(c *gin.Context) {
 	c.JSON(http.StatusOK, model.OkWithData[string](sign))
 }
 
+// @Summary Sign Participation
+// @Description Sign Participation
+// @Tags encode
+// @Accept json
+// @Produce json
+// @Param userAddress formData string true "User Address"
+// @Param contractAddress formData string true "Contract Address"
+// @Param amount formData string true "Amount"
+// @Success 200 {string} string "Sign"
+// @Router /encode/sign_participation [post]
 func (h *EncodeHandler) SignParticipation(c *gin.Context) {
 	userAddress := c.PostForm("userAddress")
 	contractAddress := c.PostForm("contractAddress")
