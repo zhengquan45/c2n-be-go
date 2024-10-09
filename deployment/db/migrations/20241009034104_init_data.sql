@@ -1,5 +1,5 @@
-delete from product_contract where id = 3;
-
+-- +goose Up
+-- +goose StatementBegin
 INSERT INTO product_contract
 (`id`,`name`,`description`,`img`,`twitter_name`,`status`,`amount`,
  `sale_contract_address`,
@@ -16,3 +16,9 @@ VALUES
      '100000000000','1','30','111','MCK',18,'2024-12-17T00:17:42',null,
      1,null,null,'DemoToken1','1',null,null,
      '2024-04-25T12:25:07','2024-05-06T12:27:31',0,'http://card_link2.com','tweet_id_1',11155111,18,0);
+-- +goose StatementEnd
+
+-- +goose Down
+-- +goose StatementBegin
+delete from product_contract where id = 3;
+-- +goose StatementEnd

@@ -1,3 +1,5 @@
+-- +goose Up
+-- +goose StatementBegin
 create table `product_contract`
 (
     `id`                       int(8) unsigned primary key not null auto_increment comment 'id',
@@ -44,3 +46,10 @@ create table `product_contract`
     `current_price`            bigint(12)                  default 0
 ) engine = InnoDB
   default charset = utf8mb4;
+
+-- +goose StatementEnd
+
+-- +goose Down
+-- +goose StatementBegin
+drop table `product_contract`;
+-- +goose StatementEnd
