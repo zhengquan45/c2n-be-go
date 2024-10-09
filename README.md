@@ -57,7 +57,6 @@ go test ./.. //运行所有测试用例
 ```
 cd deployment
 docker-compose up -d
-浏览器访问 
 ```
 
 ![1728379096195](image/README/1728379096195.png)
