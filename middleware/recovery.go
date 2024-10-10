@@ -1,8 +1,9 @@
 package middleware
 
 import (
-	"c2n/logger"
 	"net/http"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,7 +15,7 @@ func CustomRecovery() gin.HandlerFunc {
 			if err := recover(); err != nil {
 
 				// 记录错误信息
-				logger.Log.Errorf("catch exception: %v\n", err)
+				log.Errorf("catch exception: %v\n", err)
 
 				var response ErrorResponse
 				// 检查错误类型

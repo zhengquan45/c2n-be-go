@@ -13,6 +13,7 @@ import (
 )
 
 const MESSAGE_PREFIX = "\x19Ethereum Signed Message:\n"
+const HEX_PREFIX = "0x"
 
 func GetSign(hexString string) string {
 	bytes, _ := hexStringToByteArray(hexString)
@@ -103,8 +104,32 @@ func sha3Hash(data []byte) []byte {
 }
 
 func CleanHexPrefix(hexString string) string {
-	if strings.HasPrefix(hexString, "0x") {
+	if strings.HasPrefix(hexString, HEX_PREFIX) {
 		return hexString[2:] // 返回去掉前缀后的字符串
 	}
 	return hexString // 如果没有前缀，则返回原始字符串
+}
+
+func ToHexStringNoPrefixZeroPadded(value int64, size int) string {
+	return ToHexStringZeroPadded(value, size, false)
+}
+
+func ToHexStringZeroPadded(value int64, size int, withPrefix bool) string {
+	result := strconv.FormatInt(value, 16)
+
+	len := len(result) // 获取字符串长度
+	if len > size {
+		panic("value " + result + "is large then size " + strconv.Itoa(size))
+	} else if value < 0 {
+		panic("value " + result + "cannot be negative")
+	}
+
+	if len < size {
+		result = strings.Repeat("0", size-len) + result
+	}
+	if withPrefix {
+		return HEX_PREFIX + result
+	} else {
+		return result
+	}
 }

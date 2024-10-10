@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -70,8 +71,12 @@ func (h *EncodeHandler) SignParticipation(c *gin.Context) {
 	}
 	contractAddr := utils.CleanHexPrefix(contractAddress)
 	userAddr := utils.CleanHexPrefix(userAddress)
-	//TODO Amount should be converted to hex toHexStringNoPrefixZeroPadded
-	concat := strings.ToLower(userAddr + amount + contractAddr)
+	amountInt, err := strconv.ParseInt(amount, 10, 64)
+	if err != nil {
+		panic(&middleware.BusinessError{ReCode: enums.INVALID_PARAMETERS})
+	}
+	amountHex := utils.ToHexStringNoPrefixZeroPadded(amountInt, 64)
+	concat := strings.ToLower(userAddr + amountHex + contractAddr)
 	hex := common.HexToHash(concat).Hex()
 	sign := h.EncodeService.Sign(hex)
 	c.JSON(http.StatusOK, model.OkWithData[string](sign))

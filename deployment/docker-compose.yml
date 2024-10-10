@@ -20,6 +20,10 @@ services:
     container_name: brewery-mysql
     image: library/mysql:5.7.29
     restart: always
+    volumes:
+      - ./mysql/my.cnf:/etc/my.cnf
+      - ./mysql/init:/docker-entrypoint-initdb.d/
+      - ./mysql/data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:

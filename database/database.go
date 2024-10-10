@@ -2,9 +2,10 @@ package database
 
 import (
 	"c2n/config"
-	"c2n/logger"
 	"fmt"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -24,7 +25,7 @@ func InitializeDB() *gorm.DB {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		dbUser, dbPassword, dbHost, dbPort, dbName)
 
-	gormLogger := &LogrusLogger{Log: logger.Log}
+	gormLogger := &LogrusLogger{Log: log.StandardLogger()}
 
 	//配置 GORM 连接
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
@@ -34,13 +35,13 @@ func InitializeDB() *gorm.DB {
 		Logger: gormLogger,
 	})
 	if err != nil {
-		logger.Log.Error("failed to connect database:", err)
+		log.Error("failed to connect database:", err)
 	}
 
 	// 配置数据库连接池
 	sqlDB, err := db.DB()
 	if err != nil {
-		logger.Log.Errorf("Failed to configure database pool: %v", err)
+		log.Errorf("Failed to configure database pool: %v", err)
 	}
 	sqlDB.SetMaxIdleConns(10)           // 空闲连接数
 	sqlDB.SetMaxOpenConns(100)          // 最大打开连接数
@@ -48,6 +49,6 @@ func InitializeDB() *gorm.DB {
 
 	DB = db
 
-	logger.Log.Info("Database connection established")
+	log.Info("Database connection established")
 	return DB
 }

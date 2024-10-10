@@ -1,9 +1,10 @@
 package config
 
 import (
-	"c2n/logger"
 	"os"
 	"path/filepath"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/spf13/viper"
 )
@@ -40,11 +41,11 @@ func LoadConfig() {
 	viper.AddConfigPath(configPath) // 添加配置文件路径
 
 	if err := viper.ReadInConfig(); err != nil {
-		logger.Log.Errorf("Error reading config file, %s", err)
+		log.Errorf("Error reading config file, %s", err)
 	}
 
 	if err := viper.Unmarshal(&AppConfig); err != nil {
-		logger.Log.Errorf("Unable to decode into struct, %v", err)
+		log.Errorf("Unable to decode into struct, %v", err)
 	}
 }
 

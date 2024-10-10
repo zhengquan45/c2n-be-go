@@ -7,6 +7,7 @@ import (
 	"c2n/middleware"
 	"c2n/model"
 	"c2n/service"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -78,7 +79,9 @@ func (h *ProductContractHandler) List(c *gin.Context) {
 // @Router /update [post]
 func (h *ProductContractHandler) Update(c *gin.Context) {
 	var productContractUpdateRequest request.ProductContractUpdateRequest
-	if err := c.ShouldBindJSON(&productContractUpdateRequest); err != nil {
+	productContractId := c.PostForm("productContractId")
+	fmt.Printf("productContractId: %s\n", productContractId)
+	if err := c.ShouldBindBodyWithJSON(&productContractUpdateRequest); err != nil {
 		panic(&middleware.BusinessError{ReCode: enums.INVALID_PARAMETERS})
 	}
 	h.ProductContractService.Update(&productContractUpdateRequest)

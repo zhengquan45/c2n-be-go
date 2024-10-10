@@ -18,7 +18,7 @@ func NewProductContractRepository(db *gorm.DB) *ProductContractRepository {
 func (r *ProductContractRepository) GetById(productContractId string) (*model.ProductContract, error) {
 	var productContract model.ProductContract
 
-	if err := r.DB.Where("id = ?", productContractId).First(&productContract).Error; err != nil {
+	if err := r.DB.Where("id = ?", productContractId).Find(&productContract).Error; err != nil {
 		return nil, err
 	}
 	return &productContract, nil
